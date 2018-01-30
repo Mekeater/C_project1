@@ -1,4 +1,30 @@
 #include<stdio.h>
+//获取数组的最小值
+int getmin(int data[],int len)
+{
+	int min=data[0];
+	for(int i=0;i<len;i++)
+	{
+		min=min>=data[i]?data[i]:min;
+	}
+	return min;
+}
+//获取数组的最小值索引
+int getminindex(int data[],int len)
+{
+	int minindex=0;
+	int min=data[0];
+	for(int i=0;i<len;i++)
+	{
+		min=min>=data[i]?data[i]:min;
+	}
+	for(i=0;i<len;i++)
+	{
+		if(data[i]==min)
+			minindex=i;
+	}
+	return minindex;
+}
 int main()
 {
 	//****函数的传值调用****
@@ -54,8 +80,54 @@ int main()
 	reverse(data,6);*/
 
     //利用递归思想进行排序
+	/*void sort(int data[],int len);//声明函数
+
+    int data[]={8,5,3,1,7,9,6,4,2,3,16,9,0,100,65};
+	int len=sizeof(data)/sizeof(data[0]);
+    sort(data,len);
+    for(int i=0;i<len;i++)
+		printf("%d\t",data[i]);
+	printf("\n");*/
+
+	//利用递归思想将一个整数每位数倒序排列，例如:1668->8661;
+    /*void invertOrder(int);
+	int n;
+	printf("please input a number that you want to invert its order\n");
+	scanf("%d",&n);
+	printf("the number have inverted after\n");
+    invertOrder(n);
+	printf("\n");*/
+
+
 
 	return 0; 
+}
+void invertOrder(int n)
+{
+	if(n/10==0)
+	{
+		printf("%d",n);
+		return;
+	}
+	int bites=n%10;
+	printf("%d",bites);
+	invertOrder(n/10);
+}
+//搜索出最小值，将其放在最前面，一次递归
+void sort(int data[],int len)
+{
+	int tmp;
+	if(len<1)
+		return;
+	int min=getmin(data,len);
+	int minindex=getminindex(data,len);
+    if(minindex!=0)
+	{
+		tmp=data[minindex];
+        data[minindex]=data[0];
+		data[0]=tmp;
+	}
+    sort(data+1,len-1);
 }
 void reverse(int data[],int len)
 {
